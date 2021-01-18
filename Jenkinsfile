@@ -1,3 +1,14 @@
+@Library('github.com/releaseworks/jenkinslib') _
+node {
+  stage("AWS Configure") {
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AKIAXEQG34BCOLERK5PK', passwordVariable: '20k9zV+65inlceUveVr5My+bYuDFMhm1qCzcY9Fv']]) {
+        AWS("--region=eu-west-3 s3 ls")
+    }
+  }
+}
+
+
+
 properties([pipelineTriggers([githubPush()])])
 
 pipeline {
@@ -9,11 +20,6 @@ pipeline {
     }
     
     stages {
-        stage('AWS Configure') {
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AKIAXEQG34BCFFJS43NW', passwordVariable: 'mECJbXX4v+UwzntzNVEXW32XC7LSp6yiTD5kNUgI']]) {
-                AWS("--region=eu-west-3 s3 ls")
-            }
-        }
         stage('Init') {
             steps {
                 sh 'terraform init'
