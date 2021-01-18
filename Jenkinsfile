@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Init') {
             steps {
-                sh 'cd /home/ubuntu/terraform-jenkins && terraform init'
+                sh 'terraform init'
             }
         }
         stage('Plan') {
